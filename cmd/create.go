@@ -15,14 +15,14 @@ var createCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(createCmd)
-	createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	createCmd.Flags().StringP("name", "n", "", "Resource Name")
-	createCmd.Flags().StringP("username", "u", "", "Resource Username")
-	createCmd.Flags().String("uri", "", "Resource URI")
-	createCmd.Flags().StringP("password", "p", "", "Resource Password")
-	createCmd.Flags().StringP("description", "d", "", "Resource Description")
-	createCmd.Flags().StringP("folderParentID", "f", "", "Folder in which to create the Resource")
-
-	createCmd.MarkFlagRequired("name")
+	createCmd.Flags().StringP("domain", "d", "", "Domain to Update or Create (Required)")
+	createCmd.Flags().StringP("mx", "m", "", "MX Record to Mailserver (Required)")
+	createCmd.Flags().StringP("ipv4", "4", "", "IPv4 Address to Webserver (Required)")
+	createCmd.Flags().StringP("ipv6", "6", "", "IPv6 Address to Webserver")
+	createCmd.Flags().StringP("rua", "r", "", "Report Email Address for MTA-STS (Required)")
+	createCmd.MarkFlagRequired("domain")
+	createCmd.MarkFlagRequired("ipv4")
+	createCmd.MarkFlagRequired("mx")
+	createCmd.MarkFlagRequired("rua")
 
 }

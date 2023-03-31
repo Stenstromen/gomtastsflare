@@ -7,7 +7,7 @@ import (
 type JSONRequest struct {
 	Type     string `json:"type"`
 	Name     string `json:"name"`
-	Data     Data   `json:"data"`
+	Content  string `json:"content"`
 	Ttl      int    `json:"ttl"`
 	Priority int    `json:"priority"`
 	Proxied  bool   `json:"proxied"`

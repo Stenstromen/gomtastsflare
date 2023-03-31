@@ -1,31 +1,59 @@
 package resource
 
 import (
-	"fmt"
-	"os"
-
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
+	"os"
+	"strconv"
+	"time"
 
 	"github.com/spf13/cobra"
 )
 
 func ResourceCreate(cmd *cobra.Command, args []string) error {
-	var bearer = "Bearer " + os.Getenv("TOKEN")
-	name, err := cmd.Flags().GetString("name")
+	currentTime := time.Now()
+	domain, err := cmd.Flags().GetString("domain")
 	if err != nil {
 		return err
 	}
-	fmt.Println(name)
-	fmt.Println("Create Cloudflare Records here")
-	fmt.Println(bearer)
+
+	mx, err := cmd.Flags().GetString("mx")
+	if err != nil {
+		return err
+	}
+
+	ipv4, err := cmd.Flags().GetString("ipv4")
+	if err != nil {
+		return err
+	}
+	ipv6, err := cmd.Flags().GetString("ipv6")
+	if err != nil {
+		return err
+	}
+
+	rua, err := cmd.Flags().GetString("rua")
+	if err != nil {
+		return err
+	}
+
+	postToCloudflare(domain, "mta-sts A", genCloudflareReq("A", "mta-sts", ipv4, "Created"))
+
+	if ipv6 != "" {
+		postToCloudflare(domain, "mta-sts AAAA", genCloudflareReq("AAAA", "mta-sts", ipv6, "Created"))
+	}
+
+	postToCloudflare(domain, "_mta-sts TXT", genCloudflareReq("TXT", "_mta-sts", "v=STSv1; "+"id="+currentTime.Format("20060102")+"0"+strconv.Itoa(rand.Intn(20)), "Created"))
+	postToCloudflare(domain, "_mta-sts._tls", genCloudflareReq("TXT", "_mta-sts._tls", "v=TLSRPTv1; rua=mailto:"+rua, "Created"))
+	genNginxConf(domain, mx)
+
 	return nil
 }
 
-func postToCloudflare(portandprotocol string, nameanddomain string, postBody string) {
+func postToCloudflare(nameanddomain string, recordtype string, postBody string) {
 	url := "https://api.cloudflare.com/client/v4/zones"
 	var bearer = "Bearer " + os.Getenv("TOKEN")
 	req, err := http.NewRequest("GET", url, nil)
@@ -73,11 +101,16 @@ func postToCloudflare(portandprotocol string, nameanddomain string, postBody str
 
 	client2 := &http.Client{}
 	resp2, err2 := client2.Do(req2)
+	if resp2.StatusCode != 200 {
+		log.Println("Error while posting to Cloudflare: Invalid TOKEN och Record Already Exists")
+		os.Exit(1)
+	}
 	if err2 != nil {
 		log.Println(err2)
 		os.Exit(1)
 	}
+
 	defer resp.Body.Close()
 
-	log.Println("Cloudflare Response Status:", resp2.Status)
+	log.Println("Cloudflare Response Status for: "+recordtype, resp2.Status)
 }
