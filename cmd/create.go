@@ -8,8 +8,8 @@ import (
 
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "Create a new resource",
-	Long:  `Create a new resource`,
+	Short: "Create required DNS records and Nginx configuration",
+	Long:  `Create required DNS records and Nginx configuration`,
 	RunE:  resource.ResourceCreate,
 }
 
