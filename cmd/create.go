@@ -15,7 +15,7 @@ var createCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(createCmd)
-	createCmd.Flags().StringP("domain", "d", "", "Domain to Update or Create (Required)")
+	createCmd.Flags().StringP("domain", "d", "", "Domain to Update (Required)")
 	createCmd.Flags().StringP("mx", "m", "", "MX Record to Mailserver (Required)")
 	createCmd.Flags().StringP("ipv4", "4", "", "IPv4 Address to Webserver (Required)")
 	createCmd.Flags().StringP("ipv6", "6", "", "IPv6 Address to Webserver")
