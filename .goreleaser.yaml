@@ -17,7 +17,7 @@ brews:
   - name: gomtastsflare
     tap:
       owner: stenstromen
-      name: homebrew-gomtastsflare
+      name: gomtastsflare-homebrew-tap
     commit_author:
       name: stenstromen
     folder: Formula
