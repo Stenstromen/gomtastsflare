@@ -13,3 +13,13 @@ archives:
       darwin: Darwin
       linux: Linux
       amd64: x86_64
+brews:
+  - name: gomtastsflare
+    tap:
+      owner: stenstromen
+      name: gomtastsflare-homebrew-tap
+    commit_author:
+      name: stenstromen
+    folder: Formula
+    homepage: https://github.com/Stenstromen/gomtastsflare
+    description: Go binary for creating/updating MTA-STS records on Cloudflare, and create the accompanying Nginx configuration.
