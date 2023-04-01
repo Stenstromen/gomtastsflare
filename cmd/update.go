@@ -16,7 +16,7 @@ var updateCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(updateCmd)
 	updateCmd.Flags().StringP("domain", "d", "", "Domain to Update (Required)")
-	updateCmd.Flags().StringP("mx", "m", "", "MX Record to Mailserver")
+	updateCmd.Flags().StringP("mx", "m", "", "MX Record(s) to Mailserver (ex mx1.com,mx2.com)")
 	updateCmd.Flags().StringP("ipv4", "4", "", "IPv4 Address to Webserver")
 	updateCmd.Flags().StringP("ipv6", "6", "", "IPv6 Address to Webserver")
 	updateCmd.Flags().StringP("rua", "r", "", "Report Email Address for MTA-STS")
