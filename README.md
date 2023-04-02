@@ -34,6 +34,9 @@ export TOKEN="# Cloudflare API TOKEN"
 export TOKEN="# Cloudflare API TOKEN"
 ./gomtastsflare update -d example.com -4 127.0.0.2 -r new_report_user@example.com
 
+- Verify MTA-STS Setup for domain
+./gomtastsflare verify -d example.com
+
 Go binary for creating/updating MTA-STS records on Cloudflare, and create the accompanying Nginx configuration.
 
 Usage:
@@ -44,6 +47,7 @@ Available Commands:
   create      Create required DNS records and Nginx configuration
   help        Help about any command
   update      Update DNS Records and/or Nginx Configuration
+  verify      Verify DNS Records and Web server Configuration
 
 Flags:
   -h, --help   help for gomtastsflare
