@@ -3,7 +3,7 @@ package resource
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"math/rand"
 	"net/http"
@@ -70,7 +70,7 @@ func postToCloudflare(nameanddomain string, recordtype string, postBody string) 
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Println("Error while reading the response bytes:", err)
 	}
