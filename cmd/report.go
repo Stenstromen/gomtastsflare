@@ -15,6 +15,6 @@ var reportCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(reportCmd)
-	reportCmd.Flags().StringP("file", "f", "", "Reportfile to read (Required)")
+	reportCmd.Flags().StringP("file", "f", "", "Reportfile to read (GZip) (Required)")
 	reportCmd.MarkFlagRequired("file")
 }
