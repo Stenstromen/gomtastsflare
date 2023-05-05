@@ -125,3 +125,25 @@ type RecordsRes struct {
 		TotalPages int `json:"total_pages"`
 	} `json:"result_info"`
 }
+
+type Report struct {
+	OrganizationName string `json:"organization-name"`
+	DateRange        struct {
+		StartDatetime string `json:"start-datetime"`
+		EndDatetime   string `json:"end-datetime"`
+	} `json:"date-range"`
+	ContactInfo string `json:"contact-info"`
+	ReportID    string `json:"report-id"`
+	Policies    []struct {
+		Policy struct {
+			PolicyType   string   `json:"policy-type"`
+			PolicyString []string `json:"policy-string"`
+			PolicyDomain string   `json:"policy-domain"`
+			MXHost       []string `json:"mx-host"`
+		} `json:"policy"`
+		Summary struct {
+			TotalSuccessfulSessionCount int `json:"total-successful-session-count"`
+			TotalFailureSessionCount    int `json:"total-failure-session-count"`
+		} `json:"summary"`
+	} `json:"policies"`
+}
