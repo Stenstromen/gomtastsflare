@@ -37,6 +37,9 @@ export TOKEN="# Cloudflare API TOKEN"
 - Verify MTA-STS Setup for domain
 ./gomtastsflare verify -d example.com
 
+- Read report file and print to stdout
+./gomtastsflare report -f /Users/$USER/Downloads/report.json.gz
+
 Go binary for creating/updating MTA-STS records on Cloudflare, and create the accompanying Nginx configuration.
 
 Usage:
@@ -46,6 +49,7 @@ Available Commands:
   completion  Generate the autocompletion script for the specified shell
   create      Create required DNS records and Nginx configuration
   help        Help about any command
+  report      Read report file and print to stdout
   update      Update DNS Records and/or Nginx Configuration
   verify      Verify DNS Records and Web server Configuration
 
